@@ -1,52 +1,85 @@
 alert("Bienvenidos a Recetas de Cocina 2.0");
 
 let nombre = prompt("Por favor, ingrese su identificación");
-let recetas = parseInt(prompt("¿Cuántas recetas necesitas?"));
-let resetas = {
+let cantidadRecetas = parseInt(prompt("¿Cuántas recetas necesita?"));
+
+// Variables para cantidades de ingredientes
+let cantidadIngredientes = {
+    lentejas: "200g",
+    zapallo: "½",
+    huevo: "1",
+    yogur: "2 cucharadas",
+    almidon: "2 cucharadas",
+    aceite: "2 cucharadas",
+    panRallado: "1 taza"
+};
+
+// Arrays para categorías de ingredientes
+let categoriasIngredientes = {
+    verduras: ["zapallo cocido al horno"],
+    legumbres: ["lentejas cocidas"],
+    huevosDairy: ["huevo", "Yogur Ser Natural sin endulzar"],
+    condimentos: ["sal", "pimienta"],
+    otros: ["almidón de maíz", "aceite de oliva", "pan rallado"]
+};
+
+// Definición de objetos para las recetas
+let recetas = {
     italiano: {
         nombre: "Pasta Carbonara",
-        ingredientes: ["200g de pasta", "100g de panceta", "2 yemas de huevo", "50g de queso parmesano", "Sal y pimienta"]
+        ingredientes: [
+            { nombre: "pasta", cantidad: "200g" },
+            { nombre: "panceta", cantidad: "100g" },
+            { nombre: "yemas de huevo", cantidad: "2" },
+            { nombre: "queso parmesano", cantidad: "50g" },
+            { nombre: "sal", cantidad: "al gusto" },
+            { nombre: "pimienta", cantidad: "al gusto" }
+        ]
     },
     mexicano: {
         nombre: "Guacamole",
-        ingredientes: ["2 aguacates", "1 tomate", "1 cebolla", "Cilantro, sal y limón al gusto"]
+        ingredientes: [
+            { nombre: "aguacates", cantidad: "2" },
+            { nombre: "tomate", cantidad: "1" },
+            { nombre: "cebolla", cantidad: "1" },
+            { nombre: "cilantro", cantidad: "al gusto" },
+            { nombre: "sal", cantidad: "al gusto" },
+            { nombre: "limón", cantidad: "al gusto" }
+        ]
     },
+    vegetariano: {
+        nombre: "Hamburguesa de Lentejas",
+        ingredientes: [
+            { nombre: "lentejas cocidas", cantidad: "200g" },
+            { nombre: "zapallo cocido al horno", cantidad: "½" },
+            { nombre: "huevo", cantidad: "1" },
+            { nombre: "Yogur Ser Natural sin endulzar", cantidad: "2 cucharadas" },
+            { nombre: "almidón de maíz", cantidad: "2 cucharadas" },
+            { nombre: "aceite de oliva", cantidad: "2 cucharadas" },
+            { nombre: "pan rallado", cantidad: "1 taza" },
+            { nombre: "sal", cantidad: "al gusto" },
+            { nombre: "pimienta", cantidad: "al gusto" }
+        ]
+    }
 };
 
+// Función para mostrar una receta
 function mostrarReceta(tipo) {
-    if (resetas[tipo]) {
-        console.log("La receta de " + resetas[tipo].nombre + " es:");
-        resetas[tipo].ingredientes.forEach(ingrediente => console.log(ingrediente));
+    let receta = recetas[tipo];
+    if (receta) {
+        console.log("La receta de " + receta.nombre + " es:");
+        receta.ingredientes.forEach(ingrediente => console.log(ingrediente.cantidad + " de " + ingrediente.nombre));
     } else {
         console.log("Lo siento, no tenemos una receta para ese tipo de cocina.");
     }
 }
 
-if (recetas >= 5) {
+// Validar la cantidad de recetas
+if (cantidadRecetas >= 5) {
     alert(nombre + ", la cantidad de recetas pedidas es incomprensible");
-} else if (recetas > 0 && recetas <= 2) {
-    let tipos = prompt("Ingrese qué tipo de comida necesita la receta");
-    mostrarReceta(tipos);
-} else {
-    alert(nombre + ", la cantidad de recetas ingresada no es válida");
-}
-
-function mostrarReceta(tipo) {
-    console.log("La receta de " + tipo + " es: ");
-    console.log("200g de lentejas listas");
-    console.log("½ zapallo cocido al horno");
-    console.log("1 huevo");
-    console.log("2Cdas de Yogur Ser Natural sin endulzar");
-    console.log("2Cdas de almidón de maíz Sal y pimienta");
-    console.log("2Cdas de aceite de oliva");
-    console.log("1 taza de pan rallado");
-}
-
-if (recetas >= 5) {
-    alert(nombre + ", la cantidad de recetas pedidas es incomprensible");
-} else if (recetas > 0 && recetas <= 2) {
-    let tipos = prompt("Ingrese qué tipo de comida necesita la receta");
-    mostrarReceta(tipos);
+} else if (cantidadRecetas > 0 && cantidadRecetas <= 2) {
+    let tipoReceta = prompt("Ingrese qué tipo de comida necesita la receta (italiano, mexicano o vegetariano)");
+    mostrarReceta(tipoReceta);
 } else {
     alert(nombre + ", la cantidad de recetas ingresada no es válida");
 }

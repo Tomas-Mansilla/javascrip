@@ -1,4 +1,4 @@
-// Verificar si hay datos almacenados en localStorage y cargarlos si existen
+
 let storedRecipes = localStorage.getItem('recetas');
 let recetas = storedRecipes ? JSON.parse(storedRecipes) : {
     italiano: {
@@ -48,7 +48,7 @@ function mostrarRecetaEnDOM(tipo) {
     let receta = recetas[tipo];
     if (receta) {
         let recetaContainer = document.getElementById('recetaContainer');
-        recetaContainer.innerHTML = ''; // Limpiamos el contenedor
+        recetaContainer.innerHTML = ''; 
         let titulo = document.createElement('h2');
         titulo.textContent = "La receta de " + receta.nombre + " es:";
         recetaContainer.appendChild(titulo);
@@ -64,13 +64,13 @@ function mostrarRecetaEnDOM(tipo) {
     }
 }
 
-// Almacenar preferencias del usuario en localStorage
+
 document.getElementById('guardarPreferenciasBtn').addEventListener('click', function() {
     let nombreUsuario = document.getElementById('nombreUsuario').value;
     localStorage.setItem('nombreUsuario', nombreUsuario);
 });
 
-// Cargar preferencias del usuario si existen
+
 let storedUserName = localStorage.getItem('nombreUsuario');
 if (storedUserName) {
     document.getElementById('nombreUsuario').value = storedUserName;

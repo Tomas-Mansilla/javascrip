@@ -1,12 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Recetas de Cocina</title>
 </head>
 <body>
-    <script src="main.js"></script>
+    <h1>Bienvenidos a Recetas de Cocina 2.0</h1>
+    
+    <div id="recetaContainer">
+        <h2>La receta aparecerá aquí</h2>
+        <ul id="ingredientesList">
+            <!-- Los ingredientes aparecerán aquí -->
+        </ul>
+    </div>
+
+    <div>
+        <label for="tipoReceta">Selecciona el tipo de receta:</label>
+        <select id="tipoReceta">
+            <option value="italiano">Italiano</option>
+            <option value="mexicano">Mexicano</option>
+            <option value="vegetariano">Vegetariano</option>
+        </select>
+        <button id="mostrarRecetaBtn">Mostrar Receta</button>
+    </div>
+    <div>
+        <label for="nombreUsuario">Nombre de usuario:</label>
+        <input type="text" id="nombreUsuario">
+        <button id="guardarPreferenciasBtn">Guardar Preferencias</button>
+    </div>
+    
+
+    <script src="script.js"></script>
 </body>
 </html>
+

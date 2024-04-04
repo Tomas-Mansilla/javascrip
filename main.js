@@ -1,30 +1,6 @@
-alert("Bienvenidos a Recetas de Cocina 2.0");
-
-let nombre = prompt("Por favor, ingrese su identificación");
-let cantidadRecetas = parseInt(prompt("¿Cuántas recetas necesita?"));
-
-// Variables para cantidades de ingredientes
-let cantidadIngredientes = {
-    lentejas: "200g",
-    zapallo: "½",
-    huevo: "1",
-    yogur: "2 cucharadas",
-    almidon: "2 cucharadas",
-    aceite: "2 cucharadas",
-    panRallado: "1 taza"
-};
-
-// Arrays para categorías de ingredientes
-let categoriasIngredientes = {
-    verduras: ["zapallo cocido al horno"],
-    legumbres: ["lentejas cocidas"],
-    huevosDairy: ["huevo", "Yogur Ser Natural sin endulzar"],
-    condimentos: ["sal", "pimienta"],
-    otros: ["almidón de maíz", "aceite de oliva", "pan rallado"]
-};
-
-// Definición de objetos para las recetas
-let recetas = {
+// Verificar si hay datos almacenados en localStorage y cargarlos si existen
+let storedRecipes = localStorage.getItem('recetas');
+let recetas = storedRecipes ? JSON.parse(storedRecipes) : {
     italiano: {
         nombre: "Pasta Carbonara",
         ingredientes: [
@@ -63,23 +39,40 @@ let recetas = {
     }
 };
 
-// Función para mostrar una receta
-function mostrarReceta(tipo) {
+document.getElementById('mostrarRecetaBtn').addEventListener('click', function() {
+    let tipoReceta = document.getElementById('tipoReceta').value;
+    mostrarRecetaEnDOM(tipoReceta);
+});
+
+function mostrarRecetaEnDOM(tipo) {
     let receta = recetas[tipo];
     if (receta) {
-        console.log("La receta de " + receta.nombre + " es:");
-        receta.ingredientes.forEach(ingrediente => console.log(ingrediente.cantidad + " de " + ingrediente.nombre));
+        let recetaContainer = document.getElementById('recetaContainer');
+        recetaContainer.innerHTML = ''; // Limpiamos el contenedor
+        let titulo = document.createElement('h2');
+        titulo.textContent = "La receta de " + receta.nombre + " es:";
+        recetaContainer.appendChild(titulo);
+        let listaIngredientes = document.createElement('ul');
+        receta.ingredientes.forEach(ingrediente => {
+            let item = document.createElement('li');
+            item.textContent = ingrediente.cantidad + " de " + ingrediente.nombre;
+            listaIngredientes.appendChild(item);
+        });
+        recetaContainer.appendChild(listaIngredientes);
     } else {
-        console.log("Lo siento, no tenemos una receta para ese tipo de cocina.");
+        alert("Lo siento, no tenemos una receta para ese tipo de cocina.");
     }
 }
 
-// Validar la cantidad de recetas
-if (cantidadRecetas >= 5) {
-    alert(nombre + ", la cantidad de recetas pedidas es incomprensible");
-} else if (cantidadRecetas > 0 && cantidadRecetas <= 2) {
-    let tipoReceta = prompt("Ingrese qué tipo de comida necesita la receta (italiano, mexicano o vegetariano)");
-    mostrarReceta(tipoReceta);
-} else {
-    alert(nombre + ", la cantidad de recetas ingresada no es válida");
+// Almacenar preferencias del usuario en localStorage
+document.getElementById('guardarPreferenciasBtn').addEventListener('click', function() {
+    let nombreUsuario = document.getElementById('nombreUsuario').value;
+    localStorage.setItem('nombreUsuario', nombreUsuario);
+});
+
+// Cargar preferencias del usuario si existen
+let storedUserName = localStorage.getItem('nombreUsuario');
+if (storedUserName) {
+    document.getElementById('nombreUsuario').value = storedUserName;
 }
+
